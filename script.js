@@ -1,107 +1,129 @@
 
-//console.log(playRound(userChoice, computerChoice))
+// Set number of times to play the game
+const roundsToPlay = getRoundsToPlay();
+console.log(`roundsToPlay value: ${roundsToPlay}`);
 
-// ---- To-Do ----
-// Write a NEW function called game(). 
-// Call the playRound function inside of this one to play a 5 round game 
-// that keeps score and reports a winner or loser at the end.
-const getRandomIntBetween = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-const getComputerChoice = () => ["rock", "paper", "scissors"][getRandomIntBetween(0,2)];
-const makeFirstCharUpper = (string) => string.slice(0,1).toUpperCase() + string.slice(1);
-const handleCancel = (promptOutput) => {
-    if (!promptOutput ){
-        return console.log("Well, ok then! No game for you!");
-    }
+const userWantsToPlay = !(roundsToPlay === 0);
+console.log(`userWantsToPlay value: ${userWantsToPlay}`);
+
+// Check if the user wants to play the game
+if (userWantsToPlay){
+    runGame(roundsToPlay)   
+} 
+else {
+    console.log(`Got it! No Rock, Paper, Scissors for you today!`);
 }
-// Ask the user how many times they want to play the game
 
+function runGame(roundsToPlay) {
 
-
-
-
-
-
-
-const game = () => {
-
-    let numTimesToPlay = prompt("How many times would you like to play Rock Paper Scissors?", 5)
+    const winningChoicesArr = ["paperrock", "scissorspaper", "rockscissors"];
+    
+    // Initialize Scores
     let userScore = 0;
     let computerScore = 0;
-    
-    
-    if (!numTimesToPlay || numTimesToPlay == 0) {
-        return console.log("Well, ok then! No game for you!");
-    } 
-    // Cancel == null
-    // Empty OK == ""
-    // parseInt("") == 0
-    
-    // To-Do: Catch if the user enters a non-number
-    // WORKS BUT IS UGLY!!!!
-    while (isNaN(numTimesToPlay)) {
-        numTimesToPlay = prompt(`${numTimesToPlay} ain't no number! Please enter a number between 1 and 10!`)
-    }
-    
-    // To-Do: Catch if the user enters a number less then 1 or greater than 10
-    // BAD ATTEMPT BELOW
-    // while (numTimesToPlay < 1 || numTimesToPlay > 10) {
-    //     console.log("That's a lot of times! Let's keep it 10 or under please!");
-    //     numTimesToPlay = prompt("Please enter a number between 1 and 10!")
-    // }
-   
-    
+
+  
+    for (let i = 0; i < roundsToPlay; i++) {
+        playRound();
+    }    
+
+    // Play a round of Rock Paper Scissors
+    function playRound() {
         
-        // test auto-generated computerChoice, prompted userChoice
-        // call playRound in a for loop
-        for (let i = 0; i < numTimesToPlay; i++) {
-    
-            const winningChoicesArr = ["paperrock", "scissorspaper", "rockscissors"];
-            
+        // const playersChoices = getPlayersChoices();
+        const userChoice = getUserChoice();
+        const computerChoice = getComputerChoice();
+
+        getRoundResult(userChoice, computerChoice);
+
+        function getUserChoice() {
             // Prompt user for their choice. Store answer in userChoice.
-            const userChoice = makeFirstCharUpper(prompt("Choose Rock, Paper, or Scissors").toLowerCase());
+            const userChoice = prompt("Choose Rock, Paper, or Scissors").toLowerCase();
+            // print the user choice
             console.log(`userChoice is ${userChoice}`);
-            
-            // Get the computer's choice. Store answer in computerChoice.
-            const computerChoice = makeFirstCharUpper(getComputerChoice());
-            console.log(`computerChoice is ${computerChoice}`);
-            
-            let playRound = (userChoice, computerChoice) => {
-                
-                const roundChoices = `${userChoice}${computerChoice}`.toLowerCase();
-    
-                if (computerChoice == userChoice) {
-                    return `${userChoice} vs ${computerChoice}... it's a tie!`
-                }
-                else if (winningChoicesArr.includes(roundChoices)) { 
-    
-                    userScore++;
-                    return `You win! ${userChoice} beats ${computerChoice}!`;
-                }
-                else {
-                    computerScore++
-                    return `You lose! ${computerChoice} beats ${userChoice}!`
-                }
-            }
-    
-            console.log(playRound(userChoice, computerChoice));
-            console.log(`Your score: ${userScore}. CPU score: ${computerScore}`)
+            return userChoice;
         }
 
-        if (userScore == computerScore) {
-            return console.log(
-                `It's a tie!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`
-            )
-        } 
-        else if (userScore > computerScore) {
-            return console.log(
-                `You Win!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`
-            )
+        function getComputerChoice() {
+            // Get the computer's choice
+            const randomInt = getRandomIntBetween(0, 2);
+            const computerChoice = ["rock", "paper", "scissors"][randomInt];
+            // print the computer choice
+            console.log(`computerChoice is ${computerChoice}`);
+            return computerChoice;
         }
-        else {
-            return console.log(
-                `You Lose!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`
-            )
+
+        function getRoundResult(userChoice, computerChoice) {
+
+            const roundChoices = `${userChoice}${computerChoice}`.toLowerCase();
+
+            if (computerChoice == userChoice) {
+                return `${userChoice} vs ${computerChoice}... it's a tie!`;
+            }
+            else if (winningChoicesArr.includes(roundChoices)) {
+                userScore++;
+                return `You win! ${userChoice} beats ${computerChoice}!`;
+            }
+            else {
+                computerScore++;
+                return `You lose! ${computerChoice} beats ${userChoice}!`;
+            }
         }
+
+       // console.log(getPlayerChoices(userChoice, computerChoice));
+        //console.log(`Your score: ${userScore}. CPU score: ${computerScore}`);
+    }
+
+
+    // TO-DO: Turn this section into a function that accepts userScore and computerScore 
+    if (userScore == computerScore) {
+        return console.log(
+            `It's a tie!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`
+        );
+    }
+    else if (userScore > computerScore) {
+        return console.log(
+            `You Win!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`
+        );
+    }
+    else {
+        return console.log(
+            `You Lose!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`
+        );
+    }
+};
+
+
+
+function getRandomIntBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-game();
+
+
+function makeFirstCharUpper(string) {
+    return string.slice(0, 1).toUpperCase() + string.slice(1);
+}
+
+// function userWantsToPlay() {
+//     return (!roundsToPlay === 0)
+// }
+
+function getRoundsToPlay() {
+    console.log(`getRoundsToPlay() ran`)
+    let promptInput = prompt("How many times would you like to play Rock Paper Scissors?", 5);
+    console.log(`promptInput = ${promptInput}`)
+    // handle cancel
+    if (promptInput === null) {
+        return promptInput = 0;
+    }
+    else {
+        return parseInt(promptInput)
+    }
+    // handle empty string (user)
+    // handle 0
+    // handle if negative or over 10 isReasonableNumber lol
+      // Cancel == null
+    // Empty OK == ""
+    // parseInt("") == 0
+}
