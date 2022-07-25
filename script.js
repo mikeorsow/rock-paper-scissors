@@ -1,9 +1,10 @@
 const getRandomIntBetween = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 const getComputerChoice = () => ["rock", "paper", "scissors"][getRandomIntBetween(0,2)];
 
-const userChoice = "scissors";
+const userChoice = prompt("Choose Rock, Paper, or Scissors").toLocaleLowerCase();
+console.log(`userChoice is ${userChoice}`);
 const computerChoice = getComputerChoice();
-
+console.log(`computerChoice is ${computerChoice}`);
 
 // test auto-generated computerChoice, hardcoded userChoice
 let playRound = (userChoice, computerChoice) => {
