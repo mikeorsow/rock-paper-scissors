@@ -15,13 +15,13 @@
     1. DONE - Add a large, centered, div (flex) that says, "Rock, Paper, Scissors!"
     2. DONE - Add buttons for each option, rock, paper, scissors
     3. DONE - Add a results section with placeholder text
-    4. Add a scoreboard section (hardcode some values)
+    4. * In Progress - Add a scoreboard section with placeholder text
     5. Make buttons trigger playRound function
     6. Display round results in results section
     7. Add function to update scoreboard at end of each round 
     8. Add condition of 5 wins ends the game
     -->
-    <main class="flex flex-col items-center">
+    <main class="flex flex-col items-center text-white">
         <h1>Rock, Paper, Scissors!</h1>
         <h2>Make a selection</h2>
         <div class="flex justify-center mt-20">
@@ -29,9 +29,13 @@
             <button class="selection">Paper</button>
             <button class="selection">Scissors</button>
         </div>
-        <div class="flex mt-40">
+        <div id="results" class="flex mt-40">
             <h3>THIS IS WHERE THE RESULTS WILL APPEAR</h3>
         </div>
+        <div id="score" class="mt-40">
+            <h3>You: 0 Computer: 0</h3>
+        </div>
+
     </main>
 
 </body>
