@@ -115,6 +115,15 @@
     padding-right: 100px;
 }
 
+/* Margin Top */
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
 /* Margin Left & Right */
 .mx-10 {
     margin-left: 10px;
@@ -156,12 +165,14 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-h1 {
+h1, h2, h3 {
     color: #fff;
 }
 
 button.selection {
-    padding: 20px 40px;
+    /* padding: 20px 40px; */
+    width: 200px;
+    height: 100px;
     margin: 0 20px;
     font-size: 24px;
     border-style: none;
