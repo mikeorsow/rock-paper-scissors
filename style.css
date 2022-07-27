@@ -133,7 +133,7 @@
 /* ------- FONT SIZE ------- */
 
 .text-xxlrg {
-    font-size: 48px;
+    font-size: 56px;
 }
 
 .text-xlrg {
@@ -168,10 +168,6 @@
 body {
     background-color: #202020;
     font-family: 'Roboto', sans-serif;
-}
-
-h1, h2, h3 {
-    color: #fff;
 }
 
 button.selection {
