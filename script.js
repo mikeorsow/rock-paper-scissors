@@ -1,7 +1,10 @@
 
 
 const buttons = document.querySelectorAll("button.selection");
-const resultArea = document.querySelector("#results p")
+const resultArea = document.querySelector("#results h3")
+const scoreArea = document.querySelector("#score h3");
+let playerScore = 0;
+let computerScore = 0;
 
 
 buttons.forEach((button) =>
@@ -24,6 +27,14 @@ function playRound(playerChoice) {
 
   // display round result - function that accepts roundWinner, returns tie, win, lose message
   resultArea.textContent = getResultMessage(roundWinner);
+
+  // Increment the winner's score
+  if (roundWinner == "player") playerScore++;
+  if (roundWinner == "computer") computerScore++;
+  
+
+  // update scoreboard
+  scoreArea.textContent = `You: ${playerScore}  Computer: ${computerScore}`
 
   function getComputerChoice() {
     const randomInt = getRandomIntBetween(0, 2);
