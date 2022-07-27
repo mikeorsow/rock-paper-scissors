@@ -1,6 +1,8 @@
 
 
 const buttons = document.querySelectorAll("button.selection");
+const resultArea = document.querySelector("#results p")
+
 
 buttons.forEach((button) =>
   button.addEventListener("click", function (e) {
@@ -21,7 +23,7 @@ function playRound(playerChoice) {
   const roundWinner = getRoundWinner(playerChoice, computerChoice);
 
   // display round result - function that accepts roundWinner, returns tie, win, lose message
-  console.log(getResultMessage(roundWinner));
+  resultArea.textContent = getResultMessage(roundWinner);
 
   function getComputerChoice() {
     const randomInt = getRandomIntBetween(0, 2);
@@ -31,22 +33,25 @@ function playRound(playerChoice) {
 
   function getResultMessage(roundWinner) {
     if (roundWinner == "tie") {
-      return tieMessage();
-    } else if ((roundWinner = "player")) {
-      return winMessage();
-    } else {
-      return loseMessage();
+      return getTieMessage();
+    } 
+    if (roundWinner == "player") {
+      return getWinMessage();
+    } 
+    if (roundWinner == "computer"){
+      return getLoseMessage();
     }
+    
 
-    function winMessage() {
+    function getWinMessage() {
       return `You won! ${playerChoice} beats ${computerChoice}!`;
     }
 
-    function loseMessage() {
+    function getLoseMessage() {
       return `You lost! ${computerChoice} beats ${playerChoice}!`;
     }
 
-    function tieMessage() {
+    function getTieMessage() {
       return `${playerChoice} vs ${computerChoice}... it's a tie!`;
     }
   }
@@ -58,6 +63,7 @@ function playRound(playerChoice) {
     if (playerChoice == computerChoice) {
       return "tie";
     } else if (winningCombosArr.includes(roundCombo)) {
+      console.log(`round combo is ${roundCombo}`)
       return "player";
     } else {
       return "computer";
