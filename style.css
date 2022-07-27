@@ -1,0 +1,137 @@
+/* ------- FLEX ------- */
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-0 {
+    flex: 0;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.items-center {
+    align-items: center;
+}
+
+
+/* ------- TEXT POSITION ------- */
+
+.text-centered {
+    text-align: center;
+}
+
+
+/* ------- PADDING ------- */
+
+.padding-none {
+    padding: 0;
+}
+
+/* Padding Top & Bottom */
+
+.py-8 {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.py-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.py-40 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.py-48 {
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+
+.py-140 {
+    padding-top: 140px;
+    padding-bottom: 140px;
+}
+
+/* Padding Left & Right */
+
+.px-24 {
+    padding: 24px;
+}
+
+.px-28 {
+    padding-left: 28px;
+    padding-right: 28px;
+}
+
+.px-36 {
+    padding-left: 36px;
+    padding-right: 36px;
+}
+
+.px-40 {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.px-120 {
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+/* Padding Top */
+
+.pt-16 {
+    padding-top: 16px;
+}
+
+/* Padding Right */
+
+.pr-100 {
+    padding-right: 100px;
+}
+
+/* ------- FONT SIZE ------- */
+
+.text-xxlrg {
+    font-size: 48px;
+}
+
+.text-xlrg {
+    font-size: 36px;
+}
+
+.text-lrg {
+    font-size: 24px;
+}
+
+.text-med {
+    font-size: 18px;
+}
+
+
+/* ------- FONT WEIGHT ------- */
+
+.bold {
+    font-weight: 700;
+}
+
+.extra-bold {
+    font-weight: 900;
+}

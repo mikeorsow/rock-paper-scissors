@@ -1,5 +1,5 @@
 // Set number of times to play the game
-const roundsToPlay = getRoundsToPlay();
+//const roundsToPlay = getRoundsToPlay();
 
 // Check if the user wants to play the game
 if (roundsToPlay > 0) {
