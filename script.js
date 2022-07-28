@@ -1,24 +1,40 @@
-
+// TO DO: Make Score Area wrap
 
 const buttons = document.querySelectorAll("button.selection");
-const resultArea = document.querySelector("#results h3")
-const scoreArea = document.querySelector("#score h3");
+const resultsH2 = document.querySelector("#results h2");
+const scoreArea = document.querySelector("#score h2");
+const resultsDiv = document.querySelector("#results");
+const resetButton = document.createElement("button");
+
+resetButton.innerHTML = `Play Again?`;
+resetButton.classList.add("selection", "mt-20");
+resetButton.addEventListener("click", resetGame);
+resetButton.style.display = "none";
+resultsDiv.appendChild(resetButton);
+
+buttons.forEach((button) => button.addEventListener("click", clickSelection));
+
+function clickSelection(e) {
+  buttons.forEach((button) => button.classList.remove("clicked"));
+  e.target.classList.add("clicked");
+  const playerChoice = this.innerText;
+  playRound(playerChoice);
+}
+
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+  buttons.forEach((button) => button.classList.remove("clicked"));
+  buttons.forEach((button) => (button.style.display = "block"));
+  resultsH2.textContent = "Click to Play"
+  resetButton.style.display = "none";
+  scoreArea.textContent = "~ Best of 5 wins ~"
+}
+
 let playerScore = 0;
 let computerScore = 0;
 
-
-buttons.forEach((button) =>
-  button.addEventListener("click", function (e) {
-    const playerChoice = this.innerText;
-    playRound(playerChoice);
-  })
-);
-
 function playRound(playerChoice) {
-  console.log(
-    `Let's get ready to rumblllllleeeeeee! You played ${playerChoice}`
-  );
-
   // get computer choice
   const computerChoice = getComputerChoice();
 
@@ -26,45 +42,27 @@ function playRound(playerChoice) {
   const roundWinner = getRoundWinner(playerChoice, computerChoice);
 
   // display round result - function that accepts roundWinner, returns tie, win, lose message
-  resultArea.textContent = getResultMessage(roundWinner);
+  resultsH2.textContent = getResultMessage(roundWinner);
 
   // Increment the winner's score
-  if (roundWinner == "player") playerScore++;
-  if (roundWinner == "computer") computerScore++;
-  
+  if (roundWinner == "player") ++playerScore;
+  if (roundWinner == "computer") ++computerScore;
 
   // update scoreboard
-  scoreArea.textContent = `You: ${playerScore}  Computer: ${computerScore}`
+  scoreArea.textContent = `You: ${playerScore}  Computer: ${computerScore}`;
+
+  // check if game is over
+  if (playerScore == 5 || computerScore == 5) {
+    resultsH2.textContent = getFinalScores();
+    buttons.forEach((button) => (button.style.display = "none"));
+    resetButton.style.display = "block";
+    scoreArea.textContent = ""
+  }
 
   function getComputerChoice() {
     const randomInt = getRandomIntBetween(0, 2);
     const computerChoice = ["Rock", "Paper", "Scissors"][randomInt];
     return computerChoice;
-  }
-
-  function getResultMessage(roundWinner) {
-    if (roundWinner == "tie") {
-      return getTieMessage();
-    } 
-    if (roundWinner == "player") {
-      return getWinMessage();
-    } 
-    if (roundWinner == "computer"){
-      return getLoseMessage();
-    }
-    
-
-    function getWinMessage() {
-      return `You won! ${playerChoice} beats ${computerChoice}!`;
-    }
-
-    function getLoseMessage() {
-      return `You lost! ${computerChoice} beats ${playerChoice}!`;
-    }
-
-    function getTieMessage() {
-      return `${playerChoice} vs ${computerChoice}... it's a tie!`;
-    }
   }
 
   function getRoundWinner(playerChoice, computerChoice) {
@@ -74,64 +72,35 @@ function playRound(playerChoice) {
     if (playerChoice == computerChoice) {
       return "tie";
     } else if (winningCombosArr.includes(roundCombo)) {
-      console.log(`round combo is ${roundCombo}`)
       return "player";
     } else {
       return "computer";
     }
   }
 
-  // Returns the winner as either 'player', or 'computer'
-  
-}
+  function getResultMessage(roundWinner) {
+    if (roundWinner == "tie") {
+      return `${playerChoice} vs ${computerChoice}... it's a tie!`;
+    }
+    if (roundWinner == "player") {
+      return `You won! ${playerChoice} beats ${computerChoice}!`;
+    }
+    if (roundWinner == "computer") {
+      return `You lost! ${computerChoice} beats ${playerChoice}!`;
+    }
+  }
 
-// ---- New Approach ----
-// playRound(playerChoice)
-// update scores
-// display current score
-// wrap everything in a while loop, while player score || cpu score is <5, show the game
-// After the while loop, we ask the user if they want to play again
-// bonus: add a 'reset' or 'start over' button that starts the game over
+  function getFinalScores() {
+    if (playerScore > computerScore) {
+      return `You won the game!!!!!
+      Final Score: You: ${playerScore}. CPU: ${computerScore}.`;
+    } else {
+      return `You lost the game!!!!!
+      Final Score: You: ${playerScore}. CPU: ${computerScore}.`;
+    }
+  }
 
-//   // Initialize Scores
-//   let userScore = 0;
-//   let computerScore = 0;
-
-//   // Play 'roundsToPlay' number of rounds
-
-//
-//     // If it wasn't a tie, calculate the winner of the round
-//     else {
-//       // See if the user or the computer won.
-//       const roundWinner = getRoundWinner(userChoice, computerChoice);
-
-//       // Increment the winner's score
-//       roundWinner == "user" ? userScore++ : computerScore++;
-
-//       // Display the round result
-//       console.log(getResultMessage(roundWinner));
-//     }
-
-//     // ----- FUNCTIONS ----- //
-
-//     // Returns a string that tells the user if they won or lost the round
-
-//     // Returns a string that tells the user it was a tie
-
-//   // Tell the user if they won, lost, or tied the game
-//   console.log(getFinalScores());
-
-//   // Returns a string with the final score of the game
-//   function getFinalScores() {
-//     if (userScore == computerScore) {
-//       return `The game was a tie!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`;
-//     } else if (userScore > computerScore) {
-//       return `You won the game!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`;
-//     } else {
-//       return `You lost the game!!!!! Final Score: You: ${userScore}. CPU: ${computerScore}.`;
-//     }
-//   }
-
-function getRandomIntBetween(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  function getRandomIntBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 }
